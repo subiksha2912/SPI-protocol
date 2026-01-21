@@ -14,6 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: List repository files (debug)
+        run: |
+          ls -R
+
       - name: Install Icarus Verilog
         run: |
           sudo apt update
@@ -21,7 +25,8 @@ jobs:
 
       - name: Compile SPI design and testbench
         run: |
-          iverilog -o sim.out src/spi.v tb/spi_tb.v
+          iverilog -g2012 -Wall -o spi_sim src/spi.v tb/spi_tb.v
+          ls -l spi_sim
 
       - name: Run simulation
         run: |

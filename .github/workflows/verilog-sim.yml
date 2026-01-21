@@ -21,7 +21,7 @@ jobs:
 
       - name: Compile SPI design and testbench
         run: |
-          iverilog -g2012 -o spi_sim spi.v spi_tb.v
+          iverilog -o sim.out src/spi.v tb/spi_tb.v
 
       - name: Run simulation
         run: |

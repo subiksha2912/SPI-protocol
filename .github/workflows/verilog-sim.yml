@@ -1,0 +1,28 @@
+name: Verilog SPI Simulation
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt update
+          sudo apt install -y iverilog
+
+      - name: Compile SPI design and testbench
+        run: |
+          iverilog -g2012 -o spi_sim spi.sv SPI_tb.sv
+
+      - name: Run simulation
+        run: |
+          vvp spi_sim
